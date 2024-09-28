@@ -1,7 +1,9 @@
 package com.orly;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
+
 
 public class ATM {
     private ArrayList<Account> accounts = new ArrayList<>();
@@ -21,11 +23,11 @@ public class ATM {
                 case 1:
                     break;
                 case 2:
-                    break;
+                    creatAccount();
                 case 0:
                     break outerLoop;
                 default:
-                    System.out.println("ERROE！！！");
+                    System.out.println("ERROR！！！");
             }
             System.out.println();
         }
@@ -70,7 +72,25 @@ public class ATM {
 
         // 将账户添加进系统
         accounts.add(acc);
+        System.out.println("恭喜您：" + acc.getUserName() + "，开户成功！");
 
+    }
+
+
+    // 生成8位的随机卡号
+    private StringBuilder creatCardID() {
+        // 创建字符串存放卡号
+        StringBuilder cardID = new StringBuilder();
+        Random r = new Random();
+        // 循环8次随机数，将每一位追加到字符串
+        for (int i = 0; i < 8; i++) {
+            int data = r.nextInt(10);
+            cardID.append(data);
+        }
+        // 判断是否与其他账户卡号重复
+
+
+        return cardID;
     }
 
 }
