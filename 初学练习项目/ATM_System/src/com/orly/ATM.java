@@ -93,6 +93,18 @@ public class ATM {
         return cardID;
     }
 
+
+    // 根据卡号查询是否有重复的账户对象
+    private Account getAccountByCardID(String cardID) {
+        for (int i = 0; i < accounts.size(); i++) {
+            Account acc = accounts.get(i);
+            if (acc.getCardID().equals(cardID)) {
+                return acc;
+            }
+        }
+        return null;
+    }
+
 }
 
 
