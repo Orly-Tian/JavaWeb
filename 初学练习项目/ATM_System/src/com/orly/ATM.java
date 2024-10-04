@@ -39,6 +39,7 @@ public class ATM {
 
     // 账户登录
     private void login() {
+        System.out.println();
         System.out.println("===系统登录===");
         // 若系统内不存在用户，则跳出方法
         if (accounts.isEmpty()) {
@@ -63,8 +64,10 @@ public class ATM {
                     } else {
                         System.out.println("输入的密码错误，请重新输入！");
                     }
+                    System.out.println();
                 }
             }
+            System.out.println();
         }
     }
 
@@ -72,7 +75,7 @@ public class ATM {
     // 登陆后操作界面
     private void showUserCommand() {
         while (true) {
-            System.out.println("===" + loginAcc.getUserName() + "您可以选择如下功能===");
+            System.out.println("===尊敬的用户：" + loginAcc.getUserName() + "，您可以选择如下功能===");
             System.out.println("1.查询账户");
             System.out.println("2.存款");
             System.out.println("3.取款");
@@ -89,9 +92,11 @@ public class ATM {
                     break;
                 case 2:
                     // 存款
+                    depositMoney();
                     break;
                 case 3:
                     // 取款
+                    drawMoney();
                     break;
                 case 4:
                     // 转账
@@ -101,7 +106,7 @@ public class ATM {
                     break;
                 case 6:
                     // 退出当前账户
-                    System.out.println(loginAcc.getUserName() + "您已成功退出账户！");
+                    System.out.println("===尊敬的用户：" + loginAcc.getUserName() + "，您已成功退出账户！");
                     return;
                 case 7:
                     // 注销当前账户
@@ -109,6 +114,7 @@ public class ATM {
                 default:
                     System.out.println("ERROR!!!");
             }
+            System.out.println();
         }
     }
 
@@ -121,6 +127,7 @@ public class ATM {
         System.out.println("性别：" + loginAcc.getSex());
         System.out.println("余额：" + loginAcc.getMoney());
         System.out.println("取现额度：" + loginAcc.getLimit());
+        System.out.println();
     }
 
 
@@ -198,6 +205,41 @@ public class ATM {
             }
         }
         return null;
+    }
+
+
+    // 存款
+    private void depositMoney() {
+        System.out.println("===存款操作===");
+        System.out.println("请您输入存款金额：");
+        double money = sc.nextDouble();
+
+        // 更新当前账户余额
+        loginAcc.setMoney(loginAcc.getMoney() + money);
+    }
+
+
+    // 取款
+    private void drawMoney() {
+        while (true) {
+            System.out.println("===取款操作===");
+            if (loginAcc.getMoney() < 100) {
+                System.out.println("ERROR！您的账户余额不足100元！");
+                return;
+            }
+            System.out.println("请您输入取款金额：");
+            double money = sc.nextDouble();
+
+            // 更新当前账户余额
+            if (loginAcc.getMoney() >= money) {
+                if (loginAcc.getLimit() >= money) {
+                    
+                }
+                loginAcc.setMoney(loginAcc.getMoney() - money);
+            } else {
+                System.out.println("余额不足！您的余额为：" + loginAcc.getMoney());
+            }
+        }
     }
 
 }
