@@ -74,7 +74,8 @@ public class ATM {
 
     // 登陆后操作界面
     private void showUserCommand() {
-        while (true) {
+        outerloop: while (true) {
+            System.out.println();
             System.out.println("===尊敬的用户：" + loginAcc.getUserName() + "，您可以选择如下功能===");
             System.out.println("1.查询账户");
             System.out.println("2.存款");
@@ -111,6 +112,9 @@ public class ATM {
                 case 7:
                     // 注销当前账户
                     break;
+                case 8:
+                    // 返回
+                    break outerloop;
                 default:
                     System.out.println("ERROR!!!");
             }
@@ -121,6 +125,7 @@ public class ATM {
 
     // 展示当前账户信息
     private void showLoginAccount() {
+        System.out.println();
         System.out.println("===当前账户信息===");
         System.out.println("卡号：" + loginAcc.getCardID());
         System.out.println("户主：" + loginAcc.getUserName());
@@ -216,24 +221,32 @@ public class ATM {
 
         // 更新当前账户余额
         loginAcc.setMoney(loginAcc.getMoney() + money);
+        System.out.println("您已成功存款" + money + "元！");
+        System.out.println("您的账户余额为" + loginAcc.getMoney() + "元！");
     }
 
 
     // 取款
     private void drawMoney() {
+        System.out.println("===取款操作===");
+        if (loginAcc.getMoney() < 100) {
+            System.out.println("ERROR！您的账户余额不足100元！");
+            return;
+        }
         while (true) {
-            System.out.println("===取款操作===");
-            if (loginAcc.getMoney() < 100) {
-                System.out.println("ERROR！您的账户余额不足100元！");
-                return;
-            }
             System.out.println("请您输入取款金额：");
             double money = sc.nextDouble();
 
             // 更新当前账户余额
             if (loginAcc.getMoney() >= money) {
                 if (loginAcc.getLimit() >= money) {
-                    
+                    loginAcc.setMoney(loginAcc.getMoney() - money);
+                    System.out.println("您已成功取款" + money + "元！");
+                    System.out.println("您的账户余额为" + loginAcc.getMoney() + "元！");
+                    break;
+                } else {
+                    System.out.println("您当前取款金额超过单次限额！");
+                    System.out.println("您当前取款限额为：" + loginAcc.getLimit() + "元！");
                 }
                 loginAcc.setMoney(loginAcc.getMoney() - money);
             } else {
