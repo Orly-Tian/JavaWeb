@@ -16,6 +16,7 @@ public class ATM {
             System.out.println("===欢迎您进入到ATM系统===");
             System.out.println("1.用户登录");
             System.out.println("2.用户开户");
+            System.out.println();
             System.out.println("0.退出系统");
             System.out.println("请选择：");
             int code = sc.nextInt();
@@ -84,6 +85,8 @@ public class ATM {
             System.out.println("5.密码修改");
             System.out.println("6.退出账户");
             System.out.println("7.注销账户");
+            System.out.println();
+            System.out.println("0.退出登录");
             System.out.println("请输入您的操作：");
             int command = sc.nextInt();
             switch (command) {
@@ -101,18 +104,25 @@ public class ATM {
                     break;
                 case 4:
                     // 转账
+                    transferMoney();
                     break;
                 case 5:
                     // 密码修改
-                    break;
+                    updatePasswd();
+                    System.out.println("请重新登录此账户！");
+                    return;
                 case 6:
                     // 退出当前账户
                     System.out.println("===尊敬的用户：" + loginAcc.getUserName() + "，您已成功退出账户！");
                     return;
                 case 7:
                     // 注销当前账户
+                    if (deleteAccount()) {
+                        // 销户成功，返回欢迎页面
+                        return;
+                    }
                     break;
-                case 8:
+                case 0:
                     // 返回
                     break outerloop;
                 default:
@@ -147,7 +157,7 @@ public class ATM {
         acc.setUserName(name);
 
         // 输入并处理性别
-        System.out.println("请输入您的性别：");
+        // TODO: 2024/10/6  System.out.println("请输入您的性别：");
 
         // 输入并处理密码
         while (true) {
@@ -239,7 +249,7 @@ public class ATM {
 
             // 更新当前账户余额
             if (loginAcc.getMoney() >= money) {
-                if (loginAcc.getLimit() >= money) {
+                if (money <= loginAcc.getLimit()) {
                     loginAcc.setMoney(loginAcc.getMoney() - money);
                     System.out.println("您已成功取款" + money + "元！");
                     System.out.println("您的账户余额为" + loginAcc.getMoney() + "元！");
@@ -248,9 +258,111 @@ public class ATM {
                     System.out.println("您当前取款金额超过单次限额！");
                     System.out.println("您当前取款限额为：" + loginAcc.getLimit() + "元！");
                 }
-                loginAcc.setMoney(loginAcc.getMoney() - money);
             } else {
                 System.out.println("余额不足！您的余额为：" + loginAcc.getMoney());
+            }
+        }
+    }
+
+
+    // 转账操作
+    private void transferMoney() {
+        System.out.println("===用户转账===");
+        // 判断是否有其他账户
+        if (accounts.size() < 2) {
+            System.out.println("ERROR！当前系统内仅有一个账户，无法转账！");
+            return;
+        }
+        // 判断账户内余额是否为0
+        if (loginAcc.getMoney() == 0) {
+            System.out.println("ERROR！您的账户内余额为0！");
+            return;
+        }
+
+        // 转账操作
+        while (true) {
+            // 判断系统内是否有输入的账户
+            System.out.println("请您输入待转账的卡号：");
+            String cardID = sc.next();
+            Account acc = getAccountByCardID(cardID);
+            if (acc == null) {
+                System.out.println("未找到您输入的账号，请重新输入：");
+            } else if (acc == loginAcc) {
+                System.out.println("请输入其他账户以进行转账操作！");
+            } else {
+                // 对用户进行账户名认证
+                String name = acc.getUserName().substring(1);
+                System.out.println("请认证您所要转账的账户名：*" + name);
+                String preName = sc.next();
+                if (acc.getUserName().startsWith(preName)) {
+                    // 转账
+                    while (true) {
+                        System.out.println("请输入您想要转账的金额：");
+                        double money = sc.nextDouble();
+                        if (money <= loginAcc.getMoney()) {
+                            loginAcc.setMoney(loginAcc.getMoney() - money);
+                            acc.setMoney(acc.getMoney() + money);
+                            System.out.println("转账成功，已向" + acc.getUserName() + "转账" + money + "元！");
+                            System.out.println("您的余额为：" + loginAcc.getMoney() + "元!");
+                            return;
+                        } else {
+                            System.out.println("您的余额不足，请重新输入金额！");
+                            System.out.println("您的余额为：" + loginAcc.getMoney() + "元！");
+                        }
+                    }
+                } else {
+                    System.out.println("认证失败，请重新输入卡号！");
+                }
+            }
+        }
+    }
+
+
+    // 销户操作
+    private boolean deleteAccount() {
+        System.out.println("===销户操作===");
+        System.out.println("请问您确认销户吗？y/n");
+        String command = sc.next();
+        switch (command) {
+            case "y":
+                if (loginAcc.getMoney() == 0) {
+                    accounts.remove(loginAcc);
+                    System.out.println("您当前的账户已销户！");
+                    return true;
+                } else {
+                    System.out.println("您的账户中余额不为0，不允许销户！");
+                    return false;
+                }
+            default:
+                System.out.println("取消销户操作！");
+                return false;
+        }
+    }
+
+
+    // 密码修改
+    private void updatePasswd() {
+        while (true) {
+            System.out.println("===修改密码===");
+            System.out.println("请输入当前账户密码：");
+            String passwd = sc.next();
+            if (loginAcc.getPassWord().equals(passwd)) {
+                while (true) {
+                    System.out.println("请输入新密码：");
+                    String newPasswd = sc.next();
+                    System.out.println("请确认新密码：");
+                    String passwd_OK = sc.next();
+                    if (newPasswd.equals(passwd_OK)) {
+                        loginAcc.setPassWord(newPasswd);
+                        System.out.println("您已成功修改密码！");
+                        return;
+                    } else {
+                        System.out.println("您输入的密码不一致，请重新输入！");
+                    }
+                }
+
+            } else {
+                System.out.println("密码错误，请重新输入！");
             }
         }
     }
