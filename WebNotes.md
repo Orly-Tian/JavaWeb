@@ -1,4 +1,4 @@
-<h1 id="z6s4Y">1.JavaScript</h1>
+<h1 id="z6s4Y">1.JavaScript简介</h1>
 <h1 id="FtqhP">2.JavaScript基础语法</h1>
 <h2 id="BDUuI">1.导入方式</h2>
 ```html
@@ -208,7 +208,43 @@ var class = document.getElementsByClassName("clas");
 ```
 
 <h3 id="ShiD1">7.事件</h3>
- 
+<h1 id="uGJHI">3.Vue基础</h1>
+安装Node.js
+
+Node.js官网：[https://cn.vuejs.org/](https://cn.vuejs.org/)
+
+[Vue安装与配置教程（非常详细）从零基础入门到精通，看完这一篇就够了-CSDN博客](https://blog.csdn.net/Javachichi/article/details/132868889?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522ED0E68C9-6128-4E72-960E-6FE6D39DF0BA%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=ED0E68C9-6128-4E72-960E-6FE6D39DF0BA&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-132868889-null-null.142^v100^pc_search_result_base6&utm_term=%E5%AE%89%E8%A3%85vue&spm=1018.2226.3001.4187)
+
+<h1 id="EKocU">4.Maven</h1>
+<h2 id="FbvoX">1.Maven简单介绍</h2>
+Maven官网：[https://maven.apache.org/](https://maven.apache.org/)
+
+![](https://cdn.nlark.com/yuque/0/2024/png/40678113/1728906085988-96d8694f-1f5c-4992-9491-3046f7e03450.png)
+
+Maven的模型：
+
+![](https://cdn.nlark.com/yuque/0/2024/png/40678113/1728906200131-ba168a13-c8de-4b9b-a271-771219152e6f.png)
+
+Maven的仓库相关：![](https://cdn.nlark.com/yuque/0/2024/png/40678113/1728906401897-6fe1ce47-9301-4c3a-aa36-d9956c981380.png)
+
+Maven的作用：
+
+![](https://cdn.nlark.com/yuque/0/2024/png/40678113/1728904982889-20a06bb7-fadf-41f7-bfc3-90db6c0e1384.png)
+
+<h2 id="xbaPz">2.安装与配置Maven</h2>
+<h3 id="BBnZb">1.安装</h3>
+解压即可![](https://cdn.nlark.com/yuque/0/2024/png/40678113/1728916313585-a48dd505-5807-4bce-8bda-f13267153551.png)
+
+<h3 id="RuQSU">2.配置本地仓库</h3>
+配置文件路径
+
+```javascript
+./conf/settings.xml
+```
+
+
+
+
 
 
 
