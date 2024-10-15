@@ -236,14 +236,41 @@ Maven的作用：
 解压即可![](https://cdn.nlark.com/yuque/0/2024/png/40678113/1728916313585-a48dd505-5807-4bce-8bda-f13267153551.png)
 
 <h3 id="RuQSU">2.配置本地仓库</h3>
-配置文件路径
+配置文件路径：
 
 ```javascript
 ./conf/settings.xml
 ```
 
+配置本地仓库：
 
+```javascript
+// 软件安装根目录下新建本地仓库文件夹
+mkdir ./mvn_repo
 
+// 将配置文件第53行取消注释并写入本地仓库路径
+53：<localRepository>/path/to/local/repo</localRepository>
+```
+
+配置国内镜像源：
+
+```javascript
+// 阿里云Maven镜像源：
+<mirror>
+    <id>aliyunmaven</id>
+    <mirrorOf>central</mirrorOf>
+    <name>aliyun maven</name>
+    <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
+</mirror>
+
+// 将其复制到配置文件的<mirrors>标签内
+```
+
+最后，添加环境变量即可：
+
+![](https://cdn.nlark.com/yuque/0/2024/png/40678113/1728990740444-ff0733f2-8b94-417f-9605-7b7117e77b26.png)
+
+<h1 id="SDUE6">5.Spring</h1>
 
 
 
