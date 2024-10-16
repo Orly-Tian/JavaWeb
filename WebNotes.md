@@ -270,7 +270,17 @@ mkdir ./mvn_repo
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/40678113/1728990740444-ff0733f2-8b94-417f-9605-7b7117e77b26.png)
 
+<h2 id="AuoB0">3.IDEA集成Maven</h2>
 <h1 id="SDUE6">5.Spring</h1>
+<h3 id="YHQMO">1.新建模块，选择创建SpringBoot工程</h3>
+![](https://cdn.nlark.com/yuque/0/2024/png/40678113/1729082456426-f3a7e71b-ee0f-4795-97fb-e73d5c4aede2.png)
+
+<h3 id="qicrH">2.创建请求处理类，添加请求处理方法，并添加注解</h3>
+![](https://cdn.nlark.com/yuque/0/2024/png/40678113/1729082608422-7d019740-0c11-47af-b238-3681e0d35d2f.png)
+
+<h3 id="mTdcF">3.浏览器访问Web程序，请求处理方法执行</h3>
+![](https://cdn.nlark.com/yuque/0/2024/png/40678113/1729082689823-e85ac17b-fa74-464c-9e29-25cc98d49efd.png)
+
 
 
 
